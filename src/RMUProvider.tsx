@@ -1,45 +1,57 @@
 import React, { useState } from 'react';
-import { getConnectedModal, init } from './rmu';
+import { init, connect, getConnectedModal, generateModalId } from './rmu';
+import { ModalComponent, ModalUnknownProps } from './types';
 import RMUContext from './RMUContext';
+import RMUPlaceholder from './RMUPlaceholder';
 
-type RMUProviderState = Record<string, {
-  ModalComponent: React.FC;
-  props: Record<string, unknown>;
-}>;
+type RMUProviderState = Record<
+  string,
+  {
+    ModalComponent: ModalComponent;
+    modalProps: ModalUnknownProps;
+  }
+>;
 
-const RMUProvider: React.FC = ({ children }) => {
+const RMUProvider = ({ children }: { children: React.ReactNode }) => {
   const [modals, setModals] = useState<RMUProviderState>({});
 
-  const open = (id: string, props: Record<string, unknown> = {}) => {
-    const { ModalComponent } = getConnectedModal(id);
+  const open = (
+    modal: string | ModalComponent,
+    modalProps: ModalUnknownProps = {}
+  ) => {
+    let modalId: string;
 
-    const changedModals = {
+    if (typeof modal === 'string') {
+      modalId = modal;
+    } else {
+      modalId = generateModalId();
+      connect(modalId, modal);
+    }
+
+    const { ModalComponent } = getConnectedModal(modalId);
+
+    setModals(modals => ({
       ...modals,
-      [id]: {
+      [modalId]: {
         ModalComponent,
-        props,
+        modalProps,
       },
-    };
-    setModals(changedModals);
+    }));
   };
 
-  const close = (id: string) => {
-    const changedModals = { ...modals };
-    delete changedModals[id];
-    setModals(changedModals);
-  };
+  const close = (modalId: string) =>
+    setModals(modals => {
+      const changedModals = { ...modals };
+      delete changedModals[modalId];
+      return changedModals;
+    });
 
   init(open, close);
 
   return (
     <RMUContext.Provider value={{ modals, open, close }}>
       {children}
-      {Object.entries(modals).map(([id, { ModalComponent, props }]) => {
-        if (!ModalComponent) {
-          return null;
-        }
-        return <ModalComponent key={id} {...props} />;
-      })}
+      <RMUPlaceholder />
     </RMUContext.Provider>
   );
 };

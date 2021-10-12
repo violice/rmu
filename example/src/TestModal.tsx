@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { useModal } from '../dist';
+import { ModalComponentProps } from '../../dist';
 import { TEST_MODAL_ID } from './constants';
 
 type Props = {
-  children: React.ReactNode;
   onClose?: () => void;
 };
 
-const TestModal: React.FC<Props> = ({ children = 'TextModal', onClose }) => {
-  const { close } = useModal(TEST_MODAL_ID);
-
+const TestModal: React.FC<Props & ModalComponentProps> = ({
+  rmu: { modalId, close },
+  children = 'TextModal',
+  onClose,
+}) => {
   return (
     <div
       style={{
@@ -28,6 +29,7 @@ const TestModal: React.FC<Props> = ({ children = 'TextModal', onClose }) => {
         onClose && onClose();
       }}
     >
+      {modalId}
       {children}
     </div>
   );

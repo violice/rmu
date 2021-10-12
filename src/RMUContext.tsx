@@ -1,15 +1,16 @@
 import { createContext } from 'react';
+import { ModalComponent, ModalUnknownProps } from './types';
 
 type RMUContextState = {
   modals: Record<
     string,
     {
-      ModalComponent: React.FC;
-      props: Record<string, unknown>;
+      ModalComponent: ModalComponent;
+      modalProps: ModalUnknownProps;
     }
   >;
-  open: (id: string, props: Record<string, unknown>) => void;
-  close: (id: string) => void;
+  open: (modalId: string, modalProps: ModalUnknownProps) => void;
+  close: (modalId: string) => void;
 };
 
 const RMUContext = createContext<RMUContextState>({
