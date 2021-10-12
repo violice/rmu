@@ -1,12 +1,12 @@
 import React from 'react';
 
-export type ModalComponentProps = {
+export type RMUModalProps = {
   rmu: {
     modalId: string;
     close: () => void;
   };
 };
 
-export type ModalComponent = React.FC<ModalComponentProps>;
+export type RMUModal = React.FC<RMUModalProps>;
 
-export type ModalUnknownProps = Record<string, unknown>;
+export type UnknownProps = Record<string, unknown>;

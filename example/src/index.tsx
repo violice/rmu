@@ -2,8 +2,7 @@ import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import * as RMU from '../../dist';
-import { RMUProvider } from '../../dist';
+import RMU, { RMUProvider } from '../../dist';
 
 import { TEST_MODAL_ID } from './constants';
 import TestModal from './TestModal';

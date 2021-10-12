@@ -1,32 +1,6 @@
-import { ModalComponent, ModalUnknownProps } from './types';
-
-let open: (
-  modal: string | ModalComponent,
-  modalProps?: ModalUnknownProps
-) => void;
-let close: (modalId: string) => void;
-
-const init = (
-  _open: (
-    modal: string | ModalComponent,
-    modalProps?: ModalUnknownProps
-  ) => void,
-  _close: (modalId: string) => void
-) => {
-  open = _open;
-  close = _close;
-};
-
-const connectedModals: Record<string, { ModalComponent: ModalComponent }> = {};
-
-const connect = (modalId: string, ModalComponent: ModalComponent) => {
-  connectedModals[modalId] = { ModalComponent };
-};
-
-const getConnectedModal = (id: string) => connectedModals[id];
+import { RMUModal, UnknownProps } from './types';
 
 const MODAL_ID_PREFIX = 'RMU_MODAL_ID';
-
 let idCounter = 0;
 
 const generateModalId = () => {
@@ -34,4 +8,37 @@ const generateModalId = () => {
   return `${MODAL_ID_PREFIX}-${idCounter}`;
 };
 
-export { open, close, init, connect, getConnectedModal, generateModalId };
+const connectedModals: Record<string, { ModalComponent: RMUModal }> = {};
+
+const connect = (modalId: string, ModalComponent: RMUModal) => {
+  connectedModals[modalId] = { ModalComponent };
+};
+
+const getConnectedModal = (id: string) => connectedModals[id];
+
+const rmu: {
+  connect: (modalId: string, ModalComponent: RMUModal) => void;
+  open: (
+    modal: string | RMUModal,
+    modalProps?: UnknownProps
+  ) => void;
+  close: (modalId: string) => void;
+} = {
+  connect,
+  open: () => {},
+  close: () => {},
+};
+
+const init = (
+  _open: (
+    modal: string | RMUModal,
+    modalProps?: UnknownProps
+  ) => void,
+  _close: (modalId: string) => void
+) => {
+  rmu.open = _open;
+  rmu.close = _close;
+};
+
+export { init, connect, getConnectedModal, generateModalId };
+export default rmu;

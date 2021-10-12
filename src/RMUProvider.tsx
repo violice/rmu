@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { init, connect, getConnectedModal, generateModalId } from './rmu';
-import { ModalComponent, ModalUnknownProps } from './types';
+import { RMUModal, UnknownProps } from './types';
 import RMUContext from './RMUContext';
 import RMUPlaceholder from './RMUPlaceholder';
 
 type RMUProviderState = Record<
   string,
   {
-    ModalComponent: ModalComponent;
-    modalProps: ModalUnknownProps;
+    ModalComponent: RMUModal;
+    modalProps: UnknownProps;
   }
 >;
 
@@ -16,8 +16,8 @@ const RMUProvider = ({ children }: { children: React.ReactNode }) => {
   const [modals, setModals] = useState<RMUProviderState>({});
 
   const open = (
-    modal: string | ModalComponent,
-    modalProps: ModalUnknownProps = {}
+    modal: string | RMUModal,
+    modalProps: UnknownProps = {}
   ) => {
     let modalId: string;
 

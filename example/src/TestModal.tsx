@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { ModalComponentProps } from '../../dist';
-import { TEST_MODAL_ID } from './constants';
+import { RMUModalProps } from '../../dist';
 
 type Props = {
   onClose?: () => void;
 };
 
-const TestModal: React.FC<Props & ModalComponentProps> = ({
+const TestModal: React.FC<Props & RMUModalProps> = ({
   rmu: { modalId, close },
   children = 'TextModal',
   onClose,
