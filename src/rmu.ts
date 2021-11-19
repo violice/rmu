@@ -20,7 +20,8 @@ const rmu: {
   connect: (modalId: string, ModalComponent: RMUModal) => void;
   open: (
     modal: string | RMUModal,
-    modalProps?: UnknownProps
+    modalProps?: UnknownProps,
+    outletId?: string
   ) => void;
   close: (modalId: string) => void;
 } = {
