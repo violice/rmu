@@ -1,5 +1,3 @@
-import React from 'react';
-
 export type RMUModalProps = {
   rmu: {
     modalId: string;
@@ -7,9 +5,9 @@ export type RMUModalProps = {
   };
 };
 
-export type RMUModal = React.FC<RMUModalProps>;
-
 export type UnknownProps = Record<string, unknown>;
+
+export type RMUModal = (props: RMUModalProps & UnknownProps) => JSX.Element;
 
 export type RMUContextState = {
   modals: Record<
