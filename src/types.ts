@@ -5,9 +5,9 @@ export type RMUModalProps = {
   };
 };
 
-export type UnknownProps = Record<string, unknown>;
+export type UnknownProps = Record<string, any>;
 
-export type RMUModal = (props: RMUModalProps & UnknownProps) => JSX.Element;
+export type RMUModal = (props: any) => JSX.Element;
 
 export type RMUContextState = {
   modals: Record<
@@ -21,7 +21,7 @@ export type RMUContextState = {
   outlets: string[];
   addModal: (
     modalId: string,
-    modalProps: UnknownProps,
+    modalProps?: UnknownProps,
     outletId?: string
   ) => void;
   removeModal: (modalId: string) => void;

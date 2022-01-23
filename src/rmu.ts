@@ -22,16 +22,24 @@ const rmu: {
     modal: string | RMUModal,
     modalProps?: UnknownProps,
     outletId?: string
-  ) => void;
+  ) => string;
   close: (modalId: string) => void;
 } = {
   connect,
-  open: () => {},
-  close: () => {},
+  open: () => {
+    return '';
+  },
+  close: () => {
+    return null;
+  },
 };
 
 const init = (
-  _open: (modal: string | RMUModal, modalProps?: UnknownProps) => void,
+  _open: (
+    modal: string | RMUModal,
+    modalProps?: UnknownProps,
+    outletId?: string
+  ) => string,
   _close: (modalId: string) => void
 ) => {
   rmu.open = _open;

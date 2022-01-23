@@ -90,11 +90,14 @@ const RMUProvider = ({ children }: { children: React.ReactNode }) => {
         outletId,
       },
     });
+
+    return modalId;
   };
 
   const removeModal = (modalId: string) => {
     dispatch({ type: 'RMU/REMOVE_MODAL', payload: { modalId } });
   };
+
   const addOutlet = (outletId: string) => {
     dispatch({ type: 'RMU/ADD_OUTLET', payload: { outletId } });
   };
