@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import RMU from '../../dist';
+import { rmu } from '../../dist';
 import TestModalInProvider from './TestModalInProvider';
 
 const TestComponentInProvider = () => {
@@ -8,7 +8,7 @@ const TestComponentInProvider = () => {
     <div>
       <button
         onClick={() => {
-          RMU.open(
+          rmu.open(
             TestModalInProvider,
             {
               children: 'Context modal',

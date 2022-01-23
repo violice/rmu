@@ -31,15 +31,11 @@ const rmu: {
 };
 
 const init = (
-  _open: (
-    modal: string | RMUModal,
-    modalProps?: UnknownProps
-  ) => void,
+  _open: (modal: string | RMUModal, modalProps?: UnknownProps) => void,
   _close: (modalId: string) => void
 ) => {
   rmu.open = _open;
   rmu.close = _close;
 };
 
-export { init, connect, getConnectedModal, generateModalId };
-export default rmu;
+export { rmu, init, connect, getConnectedModal, generateModalId };

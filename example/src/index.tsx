@@ -2,7 +2,7 @@ import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import RMU, { RMUOutlet, RMUProvider } from '../../dist';
+import { rmu, RMUOutlet, RMUProvider } from '../../dist';
 
 import { TEST_MODAL_ID } from './constants';
 import TestModal from './TestModal';
@@ -10,14 +10,14 @@ import TestComponent from './TestComponent';
 import TestProvider from './TestProvider';
 import TestComponentInProvider from './TestComponentInProvider';
 
-RMU.connect(TEST_MODAL_ID, TestModal);
+rmu.connect(TEST_MODAL_ID, TestModal);
 
 const App = () => {
   return (
     <RMUProvider>
       <button
         onClick={() =>
-          RMU.open(TEST_MODAL_ID, {
+          rmu.open(TEST_MODAL_ID, {
             children: 'Connected modal',
             onClose: () => {
               alert('Connected modal closed');
@@ -29,8 +29,9 @@ const App = () => {
       </button>
       <button
         onClick={() =>
-          RMU.open(TestModal, {
+          rmu.open(TestModal, {
             children: 'Not connected modal',
+            test: 123,
             onClose: () => {
               alert('Not connected modal closed');
             },
