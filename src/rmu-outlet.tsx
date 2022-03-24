@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import RMUContext from './RMUContext';
+import RMUContext from './rmu-context';
 
 const RMUOutlet = ({ id = 'RMU_DEFAULT_OUTLET' }) => {
   const { modals, removeModal, addOutlet, removeOutlet } = useContext(

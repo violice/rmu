@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import { init, connect, getConnectedModal, generateModalId } from './rmu';
 import { RMUContextState, RMUModal, UnknownProps } from './types';
-import RMUContext from './RMUContext';
+import RMUContext from './rmu-context';
 
 const reducer = (
   state: {

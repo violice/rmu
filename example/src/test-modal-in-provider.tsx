@@ -1,15 +1,11 @@
 import * as React from 'react';
 import { RMUModalProps } from '../../dist';
-import { TestContext } from './TestContext';
+import { TestContext } from './test-context';
 
-type Props = {
-  onClose?: () => void;
-};
-
-const TestModalInProvider: React.FC<Props & RMUModalProps> = ({
+const TestModalInProvider = ({
   rmu: { modalId, close },
   onClose,
-}) => {
+}: RMUModalProps & { onClose?: () => void }) => {
   const context = React.useContext(TestContext);
 
   return (

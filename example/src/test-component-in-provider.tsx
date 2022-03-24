@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { rmu } from '../../dist';
-import TestModalInProvider from './TestModalInProvider';
+import TestModalInProvider from './test-modal-in-provider';
 
 const TestComponentInProvider = () => {
   return (

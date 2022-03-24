@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactNode } from 'react';
-import { TestContext } from './TestContext';
+import { TestContext } from './test-context';
 
 const TestProvider = ({ children }: { children: ReactNode }) => {
   const [count, setCount] = React.useState(0);

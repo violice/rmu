@@ -5,10 +5,10 @@ import * as ReactDOM from 'react-dom';
 import { rmu, RMUOutlet, RMUProvider } from '../../dist';
 
 import { TEST_MODAL_ID } from './constants';
-import TestModal from './TestModal';
-import TestComponent from './TestComponent';
-import TestProvider from './TestProvider';
-import TestComponentInProvider from './TestComponentInProvider';
+import TestModal from './test-modal';
+import TestComponent from './test-component';
+import TestProvider from './test-provider';
+import TestComponentInProvider from './test-component-in-provider';
 
 rmu.connect(TEST_MODAL_ID, TestModal);
 

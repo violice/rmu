@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { RMUModalProps } from '../../dist';
 
-type Props = {
-  test: number;
-  children: string;
-  onClose?: () => void;
-};
-
 const TestModal = ({
   rmu: { modalId, close },
   children = 'TextModal',
   onClose,
-}: Props & RMUModalProps) => {
+}: RMUModalProps & {
+  test: number;
+  children: string;
+  onClose?: () => void;
+}) => {
   return (
     <div
       style={{
