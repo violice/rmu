@@ -12,51 +12,42 @@ yarn add rmu
 ## Usage
 
 ```js
-RMU.connect('TEST_MODAL_ID', TestModal);
+import { openModal, closeModal, RMUOutlet, RMUProvider } from 'rmu';
 
 const Example = () => {
   return (
     <RMUProvider>
-      <button
-        onClick={() =>
-          RMU.open('TEST_MODAL_ID', {
-            children: 'Connected modal',
-            onClose: () => alert('Connected modal closed'),
-          })
-        }
+       <button
+        onClick={() => {
+          const modal = openModal(
+            <TestModal onClose={() => closeModal(modal)} />
+          );
+        }}
       >
-        Open connected modal
-      </button>
-      <button
-        onClick={() =>
-          RMU.open(TestModal, {
-            children: 'Not connected modal',
-            onClose: () => alert('Not connected modal closed'),
-          })
-        }
-      >
-        Open not connected modal
+        Open modal
       </button>
       <SomeContextProvider>
         <button onClick={() => {
-          RMU.open(
-            TestContextModal,
-            {
-              children: 'Context modal',
-              onClose: () => alert('Context modal closed'),
-            },
-            'MY_OUTLET',
+          const modal = openModal(
+            <TestContextModal onClose={() => closeModal(modal)} />,
+            { outletId: 'MY_OUTLET' },
           );
         }}>
           Open modal with access to some context
         </button>
-        <RMUOutlet id="MY_OUTLET">
+        <RMUOutlet outletId="MY_OUTLET">
       </SomeContextProvider>
       <RMUOutlet />
     </RMUProvider>
   );
 };
 ```
+
+## RoadMap
+- [x] Custom events, new API (0.2.0)
+- [ ] Connected modals (Context modals)
+- [ ] Auto-close 
+- [ ] Use for toasts example
 
 ## License
 

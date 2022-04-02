@@ -1,11 +1,7 @@
 import * as React from 'react';
-import { RMUModalProps } from '../../dist';
 import { TestContext } from './test-context';
 
-const TestModalInProvider = ({
-  rmu: { modalId, close },
-  onClose,
-}: RMUModalProps & { onClose?: () => void }) => {
+const TestModalInProvider = ({ onClose }: { onClose: () => void }) => {
   const context = React.useContext(TestContext);
 
   return (
@@ -21,12 +17,8 @@ const TestModalInProvider = ({
         justifyContent: 'center',
         background: 'rgba(0,0,0,0.1)',
       }}
-      onClick={() => {
-        close();
-        onClose && onClose();
-      }}
+      onClick={onClose}
     >
-      {modalId}
       {JSON.stringify(context)}
       TestModalInProvider
     </div>

@@ -1,30 +1,23 @@
-export type RMUModalProps = {
-  rmu: {
-    modalId: string;
-    close: () => void;
-  };
-};
-
-export type UnknownProps = Record<string, any>;
-
-export type RMUModal = (props: any) => JSX.Element;
+import { ReactNode } from 'react';
 
 export type RMUContextState = {
-  modals: Record<
-    string,
-    {
-      ModalComponent: RMUModal;
-      modalProps: UnknownProps;
-      outletId: string;
-    }
-  >;
-  outlets: string[];
-  addModal: (
-    modalId: string,
-    modalProps?: UnknownProps,
-    outletId?: string
-  ) => void;
-  removeModal: (modalId: string) => void;
+  outlets: Record<string, Record<string, ReactNode>>;
+  openModal: ({
+    modalId,
+    modalComponent,
+    outletId,
+  }: {
+    modalId: string;
+    modalComponent: ReactNode;
+    outletId: string;
+  }) => void;
+  closeModal: ({
+    modalId,
+    outletId,
+  }: {
+    modalId: string;
+    outletId: string;
+  }) => void;
   addOutlet: (outletId: string) => void;
   removeOutlet: (outletId: string) => void;
 };

@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { RMUModalProps } from '../../dist';
 
 const TestModal = ({
-  rmu: { modalId, close },
-  children = 'TextModal',
+  children,
   onClose,
-}: RMUModalProps & {
-  test: number;
-  children: string;
-  onClose?: () => void;
+}: {
+  children?: string;
+  onClose: () => void;
 }) => {
   return (
     <div
@@ -23,12 +20,8 @@ const TestModal = ({
         justifyContent: 'center',
         background: 'rgba(0,0,0,0.1)',
       }}
-      onClick={() => {
-        close();
-        onClose && onClose();
-      }}
+      onClick={onClose}
     >
-      {modalId}
       {children}
     </div>
   );

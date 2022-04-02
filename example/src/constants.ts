@@ -1,1 +1,0 @@
-export const TEST_MODAL_ID = 'MODALS/TEST_MODAL_ID';

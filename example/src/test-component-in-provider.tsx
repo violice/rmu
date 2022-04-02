@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { rmu } from '../../dist';
+import { closeModal, openModal } from '../../dist';
+
 import TestModalInProvider from './test-modal-in-provider';
 
 const TestComponentInProvider = () => {
@@ -8,13 +9,9 @@ const TestComponentInProvider = () => {
     <div>
       <button
         onClick={() => {
-          rmu.open(
-            TestModalInProvider,
-            {
-              children: 'Context modal',
-              onClose: () => alert('Context modal closed'),
-            },
-            'TEST_OUTLET'
+          const modal = openModal(
+            <TestModalInProvider onClose={() => closeModal(modal)} />,
+            { outletId: 'TEST_OUTLET' }
           );
         }}
       >

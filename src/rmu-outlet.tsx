@@ -1,34 +1,25 @@
-import React, { useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import RMUContext from './rmu-context';
 
-const RMUOutlet = ({ id = 'RMU_DEFAULT_OUTLET' }) => {
-  const { modals, removeModal, addOutlet, removeOutlet } = useContext(
+const RMUOutlet = ({ outletId = 'rmu-default-outlet' }) => {
+  const { outlets, addOutlet, removeOutlet } = useContext(
     RMUContext
   );
 
   useEffect(() => {
-    addOutlet(id);
+    addOutlet(outletId);
     return () => {
-      removeOutlet(id);
+      removeOutlet(outletId);
     };
   }, []);
 
+  const modals = outlets[outletId] ?? {};
+
   return (
     <>
-      {Object.entries(modals)
-        .filter(
-          ([_, { ModalComponent, outletId }]) =>
-            !!ModalComponent && outletId === id
-        )
-        .map(([id, { ModalComponent, modalProps }]) => {
-          return (
-            <ModalComponent
-              key={id}
-              {...modalProps}
-              rmu={{ modalId: id, close: () => removeModal(id) }}
-            />
-          );
-        })}
+      {Object.entries(modals).map(([modalId, modalComponent]) => (
+        <Fragment key={modalId}>{modalComponent}</Fragment>
+      ))}
     </>
   );
 };
