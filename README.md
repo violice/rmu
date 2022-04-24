@@ -1,6 +1,6 @@
 # RMU (React modal utility)
 
-RMU is a small, zero-dependency utility to control modals in React apps.
+RMU is a small, zero-dependency utility to control modals in React apps
 
 <!-- ## Installation
 
