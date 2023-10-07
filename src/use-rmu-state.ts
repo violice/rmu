@@ -85,7 +85,7 @@ const reducer = (
   }
 };
 
-const useRMUState = () => {
+export const useRMUState = () => {
   const [state, dispatch] = useReducer(reducer, {
     outlets: {},
   });
@@ -121,5 +121,3 @@ const useRMUState = () => {
     removeOutlet,
   };
 };
-
-export default useRMUState;

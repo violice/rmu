@@ -1,10 +1,14 @@
 import React, { Fragment, useContext, useEffect } from 'react';
-import RMUContext from './rmu-context';
+import { RMUContext } from './rmu-context';
 
-const RMUOutlet = ({ outletId = 'rmu-default-outlet' }) => {
-  const { outlets, addOutlet, removeOutlet } = useContext(
-    RMUContext
-  );
+export const RMUOutlet = ({ outletId = 'rmu-default-outlet' }) => {
+  const ctx = useContext(RMUContext);
+
+  if (!ctx) {
+    throw new Error('RMUProvider not found in components three');
+  }
+
+  const { outlets, addOutlet, removeOutlet } = ctx;
 
   useEffect(() => {
     addOutlet(outletId);
