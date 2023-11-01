@@ -45,7 +45,7 @@ const Example = () => {
 
 ## RoadMap
 - [x] Custom events, new API (0.2.0)
-- [ ] Connected modals (Context modals)
+- [ ] Connected modals
 - [ ] Auto-close 
 - [ ] Use for toasts example
 
