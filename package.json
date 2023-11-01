@@ -33,16 +33,16 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "vio-rmu",
+  "name": "@violice/rmu",
   "author": "Sergey Ivashko",
-  "module": "dist/vio-rmu.esm.js",
+  "module": "dist/rmu.esm.js",
   "size-limit": [
     {
-      "path": "dist/vio-rmu.cjs.production.min.js",
+      "path": "dist/rmu.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/vio-rmu.esm.js",
+      "path": "dist/rmu.esm.js",
       "limit": "10 KB"
     }
   ],
