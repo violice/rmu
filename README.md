@@ -12,7 +12,7 @@ yarn add rmu
 ## Usage
 
 ```js
-import { openModal, closeModal, RMUOutlet, RMUProvider } from 'rmu';
+import { openModal, closeModal, RMUOutlet, RMUProvider } from 'vio-rmu';
 
 const Example = () => {
   return (
