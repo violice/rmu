@@ -5,8 +5,8 @@ RMU is a small, zero-dependency utility to control modals in React apps
 <!-- ## Installation
 
 ```bash
-npm install --save rmu
-yarn add rmu
+npm install --save @violice/rmu
+yarn add @violice/rmu
 ``` -->
 
 ## Usage

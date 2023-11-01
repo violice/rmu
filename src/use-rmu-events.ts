@@ -9,14 +9,12 @@ export const useRMUEvents = (ctx: RMUContextState) => {
   };
 
   useEffect(() => {
-    Object.keys(events).forEach(event => {
-      //@ts-ignore
+    (Object.keys(events) as (keyof typeof events)[]).forEach(event => {
       window.addEventListener(RMU_EVENTS[event], events[event]);
     });
 
     return () => {
-      Object.keys(events).forEach(event => {
-        //@ts-ignore
+      (Object.keys(events) as (keyof typeof events)[]).forEach(event => {
         window.removeEventListener(RMU_EVENTS[event], events[event]);
       });
     };
