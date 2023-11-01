@@ -33,7 +33,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "rmu",
+  "name": "vio-rmu",
   "author": "Sergey Ivashko",
   "module": "dist/rmu.esm.js",
   "size-limit": [
