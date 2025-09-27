@@ -14,8 +14,6 @@
   "scripts": {
     "start": "tsdown --watch",
     "build": "tsdown",
-    "test": "echo 'No tests' && exit 0",
-    "lint": "echo 'No lint configured'",
     "prepare": "tsdown",
     "size": "size-limit",
     "analyze": "size-limit --why"
