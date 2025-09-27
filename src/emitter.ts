@@ -39,10 +39,6 @@ export const emitter = {
       }
     });
   },
-
-  clear() {
-    Object.keys(listenersByType).forEach(key => delete listenersByType[key]);
-  },
 };
 
 export default emitter;
