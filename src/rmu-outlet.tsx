@@ -10,14 +10,12 @@ export const RMUOutlet = ({ outletId = 'rmu-default-outlet' }) => {
 
   const { outlets, addOutlet, removeOutlet } = ctx;
 
-  // eslint-disable react-hooks/exhaustive-deps
   useEffect(() => {
     addOutlet(outletId);
     return () => {
       removeOutlet(outletId);
     };
-  }, []);
-  // eslint-enable react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const modals = outlets[outletId] ?? {};
 

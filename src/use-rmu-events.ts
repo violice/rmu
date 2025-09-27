@@ -9,7 +9,6 @@ export const useRMUEvents = (ctx: RMUContextState) => {
     close: (payload: any) => ctx.closeModal(payload),
   };
 
-  // eslint-disable react-hooks/exhaustive-deps
   useEffect(() => {
     (Object.keys(events) as (keyof typeof events)[]).forEach(event => {
       emitter.subscribe(RMU_EVENTS[event], events[event]);
@@ -20,6 +19,5 @@ export const useRMUEvents = (ctx: RMUContextState) => {
         emitter.unsubscribe(RMU_EVENTS[event], events[event]);
       });
     };
-  }, []);
-  // eslint-enable react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 };
