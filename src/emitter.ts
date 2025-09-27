@@ -4,7 +4,7 @@ type EventListenersMap = Record<string, Set<EventHandler>>;
 
 const listenersByType: EventListenersMap = {};
 
-const ensureListenersSet = (type: string): Set<EventHandler> => {
+const getListenersSet = (type: string): Set<EventHandler> => {
   if (!listenersByType[type]) {
     listenersByType[type] = new Set<EventHandler>();
   }
@@ -13,7 +13,7 @@ const ensureListenersSet = (type: string): Set<EventHandler> => {
 
 export const rmuEmitter = {
   on(type: string, handler: EventHandler) {
-    ensureListenersSet(type).add(handler);
+    getListenersSet(type).add(handler);
     return () => rmuEmitter.off(type, handler);
   },
 
