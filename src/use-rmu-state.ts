@@ -23,10 +23,8 @@ const reducer = (
       const modalOutlet = state.outlets[outletId];
 
       if (!modalOutlet) {
-        return state;
+        throw new Error(`Outlet with id ${outletId} not found`);
       }
-
-      throw new Error(`Outlet with id ${outletId} not found`);
 
       return {
         ...state,
