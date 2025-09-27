@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { RMUContextState } from './types';
 import { RMU_EVENTS } from './events';
-import { rmuEmitter } from './emitter';
+import { emitter } from './emitter';
 
 export const useRMUEvents = (ctx: RMUContextState) => {
   const events = {
@@ -11,7 +11,7 @@ export const useRMUEvents = (ctx: RMUContextState) => {
 
   useEffect(() => {
     const unsubs = (Object.keys(events) as (keyof typeof events)[]).map(event =>
-      rmuEmitter.on(RMU_EVENTS[event], events[event])
+      emitter.on(RMU_EVENTS[event], events[event])
     );
 
     return () => {

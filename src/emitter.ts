@@ -11,10 +11,10 @@ const getListenersSet = (type: string): Set<EventHandler> => {
   return listenersByType[type];
 };
 
-export const rmuEmitter = {
+export const emitter = {
   on(type: string, handler: EventHandler) {
     getListenersSet(type).add(handler);
-    return () => rmuEmitter.off(type, handler);
+    return () => emitter.off(type, handler);
   },
 
   off(type: string, handler: EventHandler) {
@@ -44,4 +44,4 @@ export const rmuEmitter = {
   },
 };
 
-export default rmuEmitter;
+export default emitter;

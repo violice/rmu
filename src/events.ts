@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { RMUContextState } from './types';
-import { rmuEmitter } from './emitter';
+import { emitter } from './emitter';
 
 export const RMU_EVENTS = {
   open: 'rmu:open-modal',
@@ -13,7 +13,7 @@ export const openModal = (
 ) => {
   const modalId = `rmu-modal-${new Date().getTime().toString()}`;
   const { outletId = 'rmu-default-outlet' } = config;
-  rmuEmitter.emit(RMU_EVENTS.open, {
+  emitter.emit(RMU_EVENTS.open, {
     modalId,
     modalComponent,
     outletId,
@@ -25,5 +25,5 @@ export const closeModal: RMUContextState['closeModal'] = ({
   modalId,
   outletId,
 }) => {
-  rmuEmitter.emit(RMU_EVENTS.close, { modalId, outletId });
+  emitter.emit(RMU_EVENTS.close, { modalId, outletId });
 };
