@@ -73,7 +73,7 @@ const reducer = (
     case ACTIONS.removeOutlet: {
       const { outletId } = action.payload;
 
-      const { [outletId]: _deleted, ...restOutlets } = state.outlets;
+      const { [outletId]: _removed, ...restOutlets } = state.outlets;
 
       return {
         ...state,
