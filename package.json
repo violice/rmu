@@ -21,7 +21,6 @@
   "peerDependencies": {
     "react": ">=16"
   },
-  
   "prettier": {
     "printWidth": 80,
     "semi": true,
@@ -30,7 +29,6 @@
   },
   "name": "@violice/rmu",
   "author": "Sergey Ivashko",
-  
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -40,17 +38,23 @@
   },
   "sideEffects": false,
   "size-limit": [
-    { "path": "dist/index.js", "limit": "2 KB" },
-    { "path": "dist/index.mjs", "limit": "2 KB" }
+    {
+      "path": "dist/index.js",
+      "limit": "2 KB"
+    },
+    {
+      "path": "dist/index.mjs",
+      "limit": "2 KB"
+    }
   ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^7.0.8",
+    "@size-limit/preset-small-lib": "^11.2.0",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.11",
     "husky": "^7.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "size-limit": "^7.0.8",
+    "size-limit": "^11.2.0",
     "tsdown": "^0.15.5",
     "tslib": "^2.6.2",
     "typescript": "^5.9.2"
