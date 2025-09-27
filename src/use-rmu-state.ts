@@ -58,9 +58,7 @@ const reducer = (
     case ACTIONS.addOutlet: {
       const { outletId } = action.payload;
 
-      const alreadyExists = !!state.outlets[outletId];
-
-      if (alreadyExists) {
+      if (!!state.outlets[outletId]) {
         throw new Error(`Outlet with id ${outletId} already exists`);
       }
 
