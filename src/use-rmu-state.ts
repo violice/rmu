@@ -42,13 +42,17 @@ const reducer = (
       const { modalId, outletId } = action.payload;
 
       const modalOutlet = state.outlets[outletId];
-      delete modalOutlet[modalId];
+      if (!modalOutlet) {
+        return state;
+      }
+
+      const { [modalId]: _removed, ...restModals } = modalOutlet;
 
       return {
         ...state,
         outlets: {
           ...state.outlets,
-          outlet: modalOutlet,
+          [outletId]: restModals,
         },
       };
     }
@@ -72,12 +76,11 @@ const reducer = (
     case ACTIONS.removeOutlet: {
       const { outletId } = action.payload;
 
+      const { [outletId]: _deleted, ...restOutlets } = state.outlets;
+
       return {
         ...state,
-        outlets: {
-          ...state.outlets,
-          [outletId]: undefined,
-        },
+        outlets: restOutlets,
       };
     }
     default:

@@ -20,7 +20,13 @@
     "analyze": "size-limit --why"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16",
+    "react-native": ">=0.64"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
   },
   "husky": {
     "hooks": {
@@ -36,6 +42,7 @@
   "name": "@violice/rmu",
   "author": "Sergey Ivashko",
   "module": "dist/rmu.esm.js",
+  "react-native": "dist/index.js",
   "size-limit": [
     {
       "path": "dist/rmu.cjs.production.min.js",

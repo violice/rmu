@@ -1,22 +1,21 @@
 import { useEffect } from 'react';
 import { RMUContextState } from './types';
 import { RMU_EVENTS } from './events';
+import { rmuEmitter } from './emitter';
 
 export const useRMUEvents = (ctx: RMUContextState) => {
   const events = {
-    open: (event: any) => ctx.openModal(event.detail),
-    close: (event: any) => ctx.closeModal(event.detail),
+    open: (payload: any) => ctx.openModal(payload),
+    close: (payload: any) => ctx.closeModal(payload),
   };
 
   useEffect(() => {
-    (Object.keys(events) as (keyof typeof events)[]).forEach(event => {
-      window.addEventListener(RMU_EVENTS[event], events[event]);
-    });
+    const unsubs = (Object.keys(events) as (keyof typeof events)[]).map(event =>
+      rmuEmitter.on(RMU_EVENTS[event], events[event])
+    );
 
     return () => {
-      (Object.keys(events) as (keyof typeof events)[]).forEach(event => {
-        window.removeEventListener(RMU_EVENTS[event], events[event]);
-      });
+      unsubs.forEach(unsub => unsub());
     };
   }, []);
 };
