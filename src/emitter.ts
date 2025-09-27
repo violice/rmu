@@ -10,7 +10,6 @@ export const emitter = {
       listenersByType[type] = new Set<EventHandler>();
     }
     listenersByType[type].add(handler);
-    return () => emitter.off(type, handler);
   },
 
   off(type: string, handler: EventHandler) {
