@@ -11,12 +11,12 @@ export const useRMUEvents = (ctx: RMUContextState) => {
 
   useEffect(() => {
     (Object.keys(events) as (keyof typeof events)[]).forEach(event => {
-      emitter.on(RMU_EVENTS[event], events[event]);
+      emitter.subscribe(RMU_EVENTS[event], events[event]);
     });
 
     return () => {
       (Object.keys(events) as (keyof typeof events)[]).forEach(event => {
-        emitter.off(RMU_EVENTS[event], events[event]);
+        emitter.unsubscribe(RMU_EVENTS[event], events[event]);
       });
     };
   }, []);

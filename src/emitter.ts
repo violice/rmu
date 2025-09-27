@@ -5,14 +5,14 @@ type EventListenersMap = Record<string, Set<EventHandler>>;
 const listenersByType: EventListenersMap = {};
 
 export const emitter = {
-  on(type: string, handler: EventHandler) {
+  subscribe(type: string, handler: EventHandler) {
     if (!listenersByType[type]) {
       listenersByType[type] = new Set<EventHandler>();
     }
     listenersByType[type].add(handler);
   },
 
-  off(type: string, handler: EventHandler) {
+  unsubscribe(type: string, handler: EventHandler) {
     const listeners = listenersByType[type];
     if (listeners) {
       listeners.delete(handler);
