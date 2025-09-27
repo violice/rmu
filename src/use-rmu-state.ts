@@ -20,19 +20,20 @@ const reducer = (
   switch (action.type) {
     case ACTIONS.openModal: {
       const { modalId, modalComponent, outletId } = action.payload;
+      const modalOutlet = state.outlets[outletId];
 
-      const outletNotFound = !state.outlets[outletId];
-
-      if (outletNotFound) {
-        throw new Error(`Outlet with id ${outletId} not found`);
+      if (!modalOutlet) {
+        return state;
       }
+
+      throw new Error(`Outlet with id ${outletId} not found`);
 
       return {
         ...state,
         outlets: {
           ...state.outlets,
           [outletId]: {
-            ...state.outlets[outletId],
+            ...modalOutlet,
             [modalId]: modalComponent,
           },
         },
