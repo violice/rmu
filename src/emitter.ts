@@ -19,10 +19,11 @@ export const emitter = {
 
   off(type: string, handler: EventHandler) {
     const listeners = listenersByType[type];
-    if (!listeners) return;
-    listeners.delete(handler);
-    if (listeners.size === 0) {
-      delete listenersByType[type];
+    if (listeners) {
+      listeners.delete(handler);
+      if (listeners.size === 0) {
+        delete listenersByType[type];
+      }
     }
   },
 
