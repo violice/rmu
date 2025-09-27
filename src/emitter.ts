@@ -35,5 +35,3 @@ export const emitter = {
     });
   },
 };
-
-export default emitter;
