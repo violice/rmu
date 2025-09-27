@@ -42,7 +42,7 @@ const reducer = (
 
       const modalOutlet = state.outlets[outletId];
       if (!modalOutlet) {
-        return state;
+        throw new Error(`Outlet with id ${outletId} not found`);
       }
 
       const { [modalId]: _removed, ...restModals } = modalOutlet;
