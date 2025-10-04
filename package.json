@@ -2,20 +2,19 @@
   "version": "0.2.5",
   "license": "MIT",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=18"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "start": "tsdown --watch",
+    "build": "tsdown",
+    "prepare": "tsdown",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
@@ -28,11 +27,6 @@
       "optional": true
     }
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
   "prettier": {
     "printWidth": 80,
     "semi": true,
@@ -41,28 +35,34 @@
   },
   "name": "@violice/rmu",
   "author": "Sergey Ivashko",
-  "module": "dist/rmu.esm.js",
   "react-native": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
   "size-limit": [
     {
-      "path": "dist/rmu.cjs.production.min.js",
-      "limit": "10 KB"
+      "path": "dist/index.js",
+      "limit": "2 KB"
     },
     {
-      "path": "dist/rmu.esm.js",
-      "limit": "10 KB"
+      "path": "dist/index.mjs",
+      "limit": "2 KB"
     }
   ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^7.0.8",
+    "@size-limit/preset-small-lib": "^11.2.0",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.11",
-    "husky": "^7.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "size-limit": "^7.0.8",
-    "tsdx": "^0.14.1",
+    "size-limit": "^11.2.0",
+    "tsdown": "^0.15.5",
     "tslib": "^2.6.2",
-    "typescript": "^4.9.5"
+    "typescript": "^5.9.2"
   }
 }
