@@ -5,5 +5,7 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   dts: true,
   clean: true,
+  treeshake: true,
+  external: ['react', 'react-dom', 'react-native'],
 });
 
