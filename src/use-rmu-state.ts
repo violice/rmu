@@ -20,10 +20,9 @@ const reducer = (
   switch (action.type) {
     case ACTIONS.openModal: {
       const { modalId, modalComponent, outletId } = action.payload;
+      const modalOutlet = state.outlets[outletId];
 
-      const outletNotFound = !state.outlets[outletId];
-
-      if (outletNotFound) {
+      if (!modalOutlet) {
         throw new Error(`Outlet with id ${outletId} not found`);
       }
 
@@ -32,7 +31,7 @@ const reducer = (
         outlets: {
           ...state.outlets,
           [outletId]: {
-            ...state.outlets[outletId],
+            ...modalOutlet,
             [modalId]: modalComponent,
           },
         },
@@ -42,22 +41,24 @@ const reducer = (
       const { modalId, outletId } = action.payload;
 
       const modalOutlet = state.outlets[outletId];
-      delete modalOutlet[modalId];
+      if (!modalOutlet) {
+        throw new Error(`Outlet with id ${outletId} not found`);
+      }
+
+      const { [modalId]: _removed, ...restModals } = modalOutlet;
 
       return {
         ...state,
         outlets: {
           ...state.outlets,
-          outlet: modalOutlet,
+          [outletId]: restModals,
         },
       };
     }
     case ACTIONS.addOutlet: {
       const { outletId } = action.payload;
 
-      const alreadyExists = !!state.outlets[outletId];
-
-      if (alreadyExists) {
+      if (!!state.outlets[outletId]) {
         throw new Error(`Outlet with id ${outletId} already exists`);
       }
 
@@ -72,12 +73,11 @@ const reducer = (
     case ACTIONS.removeOutlet: {
       const { outletId } = action.payload;
 
+      const { [outletId]: _removed, ...restOutlets } = state.outlets;
+
       return {
         ...state,
-        outlets: {
-          ...state.outlets,
-          [outletId]: undefined,
-        },
+        outlets: restOutlets,
       };
     }
     default:

@@ -19,7 +19,13 @@
     "analyze": "size-limit --why"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16",
+    "react-native": ">=0.60"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
   },
   "prettier": {
     "printWidth": 80,
@@ -29,6 +35,7 @@
   },
   "name": "@violice/rmu",
   "author": "Sergey Ivashko",
+  "react-native": "dist/index.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

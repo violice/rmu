@@ -5,7 +5,7 @@ export const RMUOutlet = ({ outletId = 'rmu-default-outlet' }) => {
   const ctx = useContext(RMUContext);
 
   if (!ctx) {
-    throw new Error('RMUProvider not found in components three');
+    throw new Error('RMUProvider not found in component tree');
   }
 
   const { outlets, addOutlet, removeOutlet } = ctx;
@@ -15,7 +15,7 @@ export const RMUOutlet = ({ outletId = 'rmu-default-outlet' }) => {
     return () => {
       removeOutlet(outletId);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const modals = outlets[outletId] ?? {};
 
