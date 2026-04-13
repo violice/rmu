@@ -1,6 +1,6 @@
 {
   "name": "@violice/rmu",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "type": "module",
   "author": "Sergey Ivashko",
   "license": "MIT",
@@ -21,8 +21,8 @@
     "test:coverage": "vitest run --coverage"
   },
   "peerDependencies": {
-    "react": ">=19",
-    "react-native": ">=0.60"
+    "react": ">=18",
+    "react-native": ">=0.69"
   },
   "peerDependenciesMeta": {
     "react-native": {
