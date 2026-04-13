@@ -1,29 +1,30 @@
 import { ReactNode } from 'react';
-import { RMUContextState } from './types';
+import { OpenModalPayload, CloseModalPayload, RMUEventType } from './types';
 import { emitter } from './emitter';
-
-export const RMU_EVENTS = {
-  open: 'rmu:open-modal',
-  close: 'rmu:close-modal',
-} as const;
+import { RMU_DEFAULT_OUTLET_ID } from './constants';
 
 export const openModal = (
   modalComponent: ReactNode,
   config: { outletId?: string } = {}
-) => {
+): { modalId: string; outletId: string } => {
   const modalId = `rmu-modal-${new Date().getTime().toString()}`;
-  const { outletId = 'rmu-default-outlet' } = config;
-  emitter.emit(RMU_EVENTS.open, {
+  const { outletId = RMU_DEFAULT_OUTLET_ID } = config;
+  const payload: OpenModalPayload = {
     modalId,
     modalComponent,
     outletId,
-  });
+  };
+  emitter.emit<OpenModalPayload>(RMUEventType.OpenModal, payload);
   return { modalId, outletId };
 };
 
-export const closeModal: RMUContextState['closeModal'] = ({
+export const closeModal = ({
   modalId,
   outletId,
-}) => {
-  emitter.emit(RMU_EVENTS.close, { modalId, outletId });
+}: {
+  modalId: string;
+  outletId: string;
+}): void => {
+  const payload: CloseModalPayload = { modalId, outletId };
+  emitter.emit<CloseModalPayload>(RMUEventType.CloseModal, payload);
 };

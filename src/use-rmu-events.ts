@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { RMUContextState } from './types';
-import { RMU_EVENTS } from './events';
+import { RMUContextState, OpenModalPayload, CloseModalPayload } from './types';
+import { RMU_EVENTS } from './constants';
 import { emitter } from './emitter';
 
 export const useRMUEvents = (ctx: RMUContextState) => {
   const events = {
-    open: (payload: any) => ctx.openModal(payload),
-    close: (payload: any) => ctx.closeModal(payload),
+    open: (payload: OpenModalPayload) => ctx.openModal(payload),
+    close: (payload: CloseModalPayload) => ctx.closeModal(payload),
   };
 
   useEffect(() => {
@@ -19,5 +19,5 @@ export const useRMUEvents = (ctx: RMUContextState) => {
         emitter.unsubscribe(RMU_EVENTS[event], events[event]);
       });
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 };

@@ -1,7 +1,8 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import { RMUContext } from './rmu-context';
+import { RMU_DEFAULT_OUTLET_ID } from './constants';
 
-export const RMUOutlet = ({ outletId = 'rmu-default-outlet' }) => {
+export const RMUOutlet = ({ outletId = RMU_DEFAULT_OUTLET_ID }) => {
   const ctx = useContext(RMUContext);
 
   if (!ctx) {
@@ -15,7 +16,7 @@ export const RMUOutlet = ({ outletId = 'rmu-default-outlet' }) => {
     return () => {
       removeOutlet(outletId);
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const modals = outlets[outletId] ?? {};
 
