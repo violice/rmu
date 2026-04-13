@@ -12,7 +12,7 @@ React Modal Utility (RMU) - Zero-dependency React modal state library.
 ## Requirements
 
 - Node.js >= 24 (enforced in `engines` and CI)
-- React >= 19 (peer dependency)
+- React >= 18 (peer dependency)
 
 ## Commands
 

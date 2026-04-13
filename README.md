@@ -27,7 +27,7 @@ pnpm add @violice/rmu
 
 ## Requirements
 
-- React >= 19
+- React >= 18
 - Node.js >= 24
 
 ## Quick Start
