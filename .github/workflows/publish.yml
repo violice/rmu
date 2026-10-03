@@ -1,35 +1,74 @@
-name: CI/CD
+name: Publish
+
 on:
   release:
-    types: [created]
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: publish-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
 
 jobs:
-  test:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7.0.1
         with:
-          node-version: '24.x'
-      - run: npm ci
-      - run: npm run test:coverage
-
-  build:
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.event_name == 'release'
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24.x'
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm ci && npm run build
-      - run: npm run size
-      - run: npm publish
+          ref: refs/tags/${{ github.event.release.tag_name }}
+          persist-credentials: false
+      - name: Check the release commit
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          RELEASE_SHA: ${{ github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$RELEASE_SHA"
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version-file: .node-version
+          package-manager-cache: false
+      # Pin an OIDC-capable npm rather than relying on the runner's bundled version.
+      - run: npm install --global npm@12.1.0
+      - name: Check release metadata
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { readFile } from 'node:fs/promises';
+          const manifest = JSON.parse(await readFile('package.json', 'utf8'));
+          const lock = JSON.parse(await readFile('package-lock.json', 'utf8'));
+          assert.equal(process.env.RELEASE_TAG, `v${manifest.version}`, 'Release tag must match package.version');
+          assert.equal(lock.version, manifest.version);
+          assert.equal(lock.packages[''].version, manifest.version);
+          assert.equal(manifest.repository?.type, 'git');
+          assert.equal(manifest.repository?.url, `git+https://github.com/${process.env.GITHUB_REPOSITORY}.git`);
+          NODE
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test:coverage
+      - run: npm run size
+      - name: Pack the release archive
+        id: pack
+        run: |
+          mkdir -p .artifacts/package
+          npm pack --ignore-scripts --json --pack-destination .artifacts/package > .artifacts/package/pack.json
+          archive=$(node --input-type=module -e "import fs from 'node:fs'; console.log(Object.values(JSON.parse(fs.readFileSync('.artifacts/package/pack.json', 'utf8')))[0].filename)")
+          echo "archive=$archive" >> "$GITHUB_OUTPUT"
+          cd .artifacts/package
+          sha256sum "$archive" > "$archive.sha256"
+          npm publish "$archive" --dry-run --access public --ignore-scripts --registry https://registry.npmjs.org
+      - uses: actions/upload-artifact@v7.0.1
+        with:
+          name: release-package-evidence
+          path: .artifacts/package/
+          include-hidden-files: true
+          if-no-files-found: error
+      - name: Publish the archive with npm OIDC
+        working-directory: .artifacts/package
+        env:
+          ARCHIVE: ${{ steps.pack.outputs.archive }}
+        run: |
+          sha256sum --check "$ARCHIVE.sha256"
+          npm publish "$ARCHIVE" --access public --ignore-scripts --registry https://registry.npmjs.org
