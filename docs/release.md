@@ -3,6 +3,18 @@
 Publication follows preact-fluent-ui: GitHub Release triggers npm trusted publishing
 through OIDC. No NPM_TOKEN or NODE_AUTH_TOKEN is required.
 
+## Published 0.2.10
+
+Version 0.2.10 was published on 2026-10-03 from commit
+`78af252499dd47f08cff4c9ed2793a85db4a2786` through npm OIDC. The registry's
+latest tag points to 0.2.10 and npm recorded provenance. A fresh temporary consumer
+installed the exact registry version and passed ESM/CJS runtime imports and
+TypeScript declaration checks for both module formats.
+
+- [npm package](https://www.npmjs.com/package/@violice/rmu/v/0.2.10)
+- [GitHub Release](https://github.com/violice/rmu/releases/tag/v0.2.10)
+- [Successful publish workflow](https://github.com/violice/rmu/actions/runs/37119637802)
+
 ## One-time npm setup
 
 In the settings for @violice/rmu on npmjs.com, configure a GitHub Actions trusted
@@ -16,7 +28,7 @@ publisher:
 | Environment name | Empty |
 | Allowed actions | Direct `npm publish` allowed |
 
-Configure this account setting before the first OIDC release. See
+The owner configured this account setting before the 0.2.10 release. See
 [npm's trusted publisher guide](https://docs.npmjs.com/trusted-publishers/).
 The workflow uses GitHub-hosted Ubuntu, Node 24, npm 12.1.0 and id-token: write.
 For public repositories and public packages, npm generates provenance automatically.
