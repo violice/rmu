@@ -38,8 +38,9 @@ npm run size
 
 ## Build Notes
 
-- **Bundler**: tsdown (Rollup-based TypeScript bundler)
+- **Bundler**: tsdown (Rolldown-based TypeScript bundler)
 - **Formats**: ESM (`dist/index.mjs`) + CJS (`dist/index.cjs`)
+- **Declarations**: ESM (`dist/index.d.mts`) + CJS (`dist/index.d.cts`)
 - **Externals**: `react`, `react-dom`, `react-native` are never bundled
 - **Sourcemaps**: Generated for both formats
 - **Minification**: Enabled
@@ -52,9 +53,12 @@ npm run size
 
 ## CI/CD (GitHub Actions)
 
-- **Triggers**: Push/PR to `master`, releases
-- **Pipeline**: `test` (coverage) → `build` → `size` → `npm publish` (releases only)
-- **Node version**: Locked to 24.x
+- **CI**: `ci.yml` runs coverage tests, build and size checks on push/PR to `master`
+- **Publication**: `publish.yml` runs on GitHub `release: published`, checks the release commit, tag, lockfile versions and repository metadata, then builds, tests and checks size
+- **Archive**: Packs once, records SHA-256, runs a publish dry run, uploads evidence and publishes the same archive after checking its checksum
+- **Authentication**: npm trusted publishing through OIDC with `id-token: write`; no npm token secret
+- **Runtime**: Node 24 from `.node-version`, npm 12.1.0 for publication
+- **Release guide**: See [docs/release.md](docs/release.md); a tag push alone does not publish
 
 ## Style
 

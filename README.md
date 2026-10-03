@@ -338,7 +338,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ```bash
 # Install dependencies
-npm install
+npm ci
 
 # Run tests
 npm test
@@ -349,6 +349,12 @@ npm run build
 # Check bundle size
 npm run size
 ```
+
+## Releases
+
+Publishing a GitHub Release for `v<package.version>` runs the npm trusted
+publishing workflow through OIDC. See the [release guide](docs/release.md) for
+version updates, publisher settings and verification steps.
 
 ## License
 
